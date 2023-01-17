@@ -3,6 +3,9 @@ import { AiFillGoogleCircle} from "react-icons/ai"
 import { app } from "../config/firebase.config"
 import {getAuth,GoogleAuthProvider, signInWithPopup} from "firebase/auth"
 import { useNavigate } from 'react-router-dom'
+import { validateUser } from '../api'
+import { actionType } from '../context/reducer'
+import { useStateGlobal } from '../context/StateProvider'
 
 
 
@@ -11,7 +14,9 @@ export const Login = ({setAuth}) => {
     const firebaseauth = getAuth(app)
     const provider=new GoogleAuthProvider()
     
-    const navigate=useNavigate()
+  const navigate = useNavigate()
+  
+  const [user, dispatch] = useStateGlobal(); 
 
     const loginWithGoogle = async () => { 
         await signInWithPopup(firebaseauth, provider).then((userInfo) => { 
@@ -22,11 +27,15 @@ export const Login = ({setAuth}) => {
                 firebaseauth.onAuthStateChanged((userInfo) => { 
                     if(userInfo) { 
                       userInfo.getIdToken().then((token) => {
-                        console.log(token)
+                         
+                        validateUser(token).then((data) => {
+                          dispatch({type:actionType.SET_USER, user: data})
+                         })
                       })
                         navigate("/", {replace: true})
                     } else {
                       setAuth(false)
+                      dispatch({type:actionType.SET_USER, user: null})
                       window.localStorage.setItem("auth", false)
                         navigate("/login")
                     }
