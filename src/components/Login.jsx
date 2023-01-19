@@ -27,8 +27,9 @@ export const Login = ({setAuth}) => {
                 firebaseauth.onAuthStateChanged((userInfo) => { 
                     if(userInfo) { 
                       userInfo.getIdToken().then((token) => {
-                         
+                        
                         validateUser(token).then((data) => {
+                         
                           dispatch({type:actionType.SET_USER, user: data})
                          })
                       })
