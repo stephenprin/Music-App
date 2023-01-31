@@ -13,7 +13,8 @@ function Header() {
     const [{ user }, dispatch] = useStateGlobal();
 
     const [isShow, setShow] = useState(false)
-    const navigate=useNavigate()
+    const navigate = useNavigate()
+     
     const signOut = () => { 
         const firebaseAuth = getAuth(app)
         firebaseAuth.signOut().then(() => {
@@ -28,10 +29,10 @@ function Header() {
 
 
   return (
- 
-          <header className='w-full flex items-center p-4 md:py-2 md:px-6'>
+   
+          <header className='w-full flex items-center p-4 md:py-2 md:px-6 bg-gradient-to-r from-black-700 to-slate-800'>
           <NavLink to='/'>
-          <img src={Logo} alt="logo" className='w-16 ' />
+          <img src={Logo} alt="logo" className='w-10 ' />
          </NavLink>
         
           <ul className='flex justify-center ml-6 items-center'>
@@ -58,7 +59,7 @@ function Header() {
                   </NavLink>
                       <p className=' text-sm text-cyan-500 hover:font-semibold duration-150  transition-all ease-in-out'>My Favorites</p>
                       {user?.data?.role === "admin" && (
-                          <NavLink to={'/dashboard'}> <p className=' text-sm text-cyan-500 hover:font-semibold duration-150  transition-all ease-in-out'>Dashboard</p>
+                          <NavLink to={'/dashboard/home'}> <p className=' text-sm text-cyan-500 hover:font-semibold duration-150  transition-all ease-in-out'>Dashboard</p>
                           </NavLink>
                       )}
                       <hr />

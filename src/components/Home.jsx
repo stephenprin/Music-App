@@ -3,7 +3,7 @@ import {Header} from "../components"
 
 export const Home = () => {
   return (
-    <div className='w-full h-auto flex justify-center items-center bg-slate-900'>
+    <div className='w-full h-auto flex justify-center items-center h-14 bg-gradient-to-r '>
       <Header/>
     
     </div>
